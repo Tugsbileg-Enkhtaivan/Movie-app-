@@ -1,4 +1,4 @@
-type MovieType = {
+export type MovieType = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -23,9 +23,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { ACCESS_TOKEN } from "../constants";
 import axios, { isCancel, AxiosError } from 'axios';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star } from "lucide-react";
-// import Gallery from "@/components/Gallery";
+import { Film, Star } from "lucide-react";
+import Gallery from "@/components/Gallery";
 export default function Home() {
   const searchMovie = (e: React.FormEvent<HTMLInputElement>) => {
     const search = (e.target as HTMLInputElement).value;
@@ -56,26 +55,7 @@ export default function Home() {
 
   return (
     <div className="p-8">
-      <input type="text" placeholder="Search for a movie" className=" p-4 text-lg border rounded-lg" onChange={searchMovie} />
-      <div className="grid grid-cols-5 items-center justify-items-center justify-self-center w-fit min-h-screen gap-8 sm:p-20 font-[familyname:var(--font-geist-sans)]">
-        {movieList.map((movie: MovieType) => {
-          return <Card key={movie.id} className=" p-0 gap-0 w-[230px]">
-            <CardContent className="p-0 h-[340px]">
-              <img
-                className="rounded-t-xl"
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              />
-            </CardContent>
-            <CardHeader className="p-2">
-              <CardDescription className="flex items-center gap-1 p-0">
-                <Star size={18} color="black" fill="black" />
-                <span>{movie.vote_average}/10</span>
-              </CardDescription>
-              <CardTitle>{movie.title}</CardTitle>
-            </CardHeader>
-          </Card>
-        })}
-      </div>
+      <Gallery movieList={movieList} />
     </div>
 
   )
