@@ -18,9 +18,7 @@ export type GalleryProps = {
   movieType: MovieType[];
   movieList: [];
 }
-type myThis = {
-  this: any
-}
+
 'use client'
 import { ChangeEvent, useState } from "react";
 import { useEffect } from "react";
@@ -38,28 +36,49 @@ export default function Home() {
   const [movieList, setMovieList] = useState([])
   const [genreId, setGenreId] = useState(18);
   const [searchValue, setSearchValue] = useState("")
+  const [nowPlayingMovies, setNowPLayingMovies] = useState([])
   const [upComingMovies, setUpComingMovies] = useState([])
+  const [topRatedMovies, setTopRatedMovies] = useState([])
+  const [popularMovies, setPopularMovies] = useState([])
   const getMovies = async () => {
     const movies = await axios.get(`https://api.themoviedb.org/3/${(searchValue === "" ? "discover" : "search")}/movie?language=en&with_genres=${genreId}&query=${searchValue}`, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`
       }
     })
-
-
     setMovieList(movies.data.results)
     console.log(movies.data.results)
     // const movies = await res.json();
   };
-  const getUpcomingMovies = async()=>{
-      const upComingMovies = await instance.get(`/movie/upcoming`)
-      setUpComingMovies(upComingMovies.data.results)
+  const getNowPlayingMovies = async()=>{
+      const nowPlayingmovies = await instance.get(`/movie/now_playing`)
+      setNowPLayingMovies(nowPlayingmovies.data.results)
+  }
+  const getUpComingMovies = async()=>{
+    const upComingMovies = await instance.get(`/movie/upcoming`)
+    setUpComingMovies(upComingMovies.data.results)
+  }
+  const getTopRatedMovies = async()=>{
+    const topRatedMovies = await instance.get(`/movie/top_rated`)
+    setTopRatedMovies(topRatedMovies.data.results)
+  }
+  const getPopularMovies = async()=>{
+    const popularMovies = await instance.get(`/movie/popular`)
+    setPopularMovies(popularMovies.data.results)
   }
   useEffect(() => {
     getMovies();
-    getUpcomingMovies();
+    getNowPlayingMovies();
+    getUpComingMovies();
+    getTopRatedMovies();
+    getPopularMovies();
   }, [genreId, searchValue])
   console.log(searchValue)
+  const movieRanks = [
+    "popular",
+    "top_rated",
+    "upcoming"
+  ]
   return (
     <div className="p-8">
       <div className="flex items-center justify-around">
@@ -81,7 +100,7 @@ export default function Home() {
       </div>
       <Carousel className="relative">
         <CarouselContent className="gap-0">
-          {upComingMovies.slice(0,3).map((movie: MovieType) => {
+          {nowPlayingMovies.slice(0,3).map((movie: MovieType) => {
             return <CarouselItem key={movie.id} className="h-[50vh]">
               <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} className="h-full object-center object-cover w-full"/>
             </CarouselItem>
@@ -91,8 +110,15 @@ export default function Home() {
         <CarouselNext className="absolute "/>
       </Carousel>
 
-      <Gallery movieList={movieList} />
-
+      {/* <Gallery movieList={movieList} /> */}
+          {movieRanks.map((rank, index) => {
+            return (
+              <div key={index}>
+                <h1>{rank}</h1>
+                <Gallery movieList={rank === "popular" ? popularMovies : rank === "top_rated" ? topRatedMovies : upComingMovies} />
+              </div>
+            );
+          })}
     </div>
 
   )
