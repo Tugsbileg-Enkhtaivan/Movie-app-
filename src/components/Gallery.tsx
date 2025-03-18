@@ -1,13 +1,13 @@
-import { MovieType } from "@/app/page";
+import { MovieTypes } from "@/app/page";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star } from "lucide-react";
-type Type = { movieList: MovieType[] }
+type Type = { movieList: MovieTypes[] }
 
 export default function Gallery({ movieList }: Type) {
     return (
-        <div className="grid grid-cols-5 items-center justify-items-center justify-self-center w-fit min-h-screen gap-8 sm:p-20 font-[familyname:var(--font-geist-sans)]">
-            {movieList.slice(0,10).map((movie: MovieType) => {
-                return <Card key={movie.id} className=" p-0 gap-0 w-[230px]">
+        <div className="grid grid-cols-5 items-center justify-items-center justify-self-center w-fit min-fit gap-8 font-[familyname:var(--font-geist-sans)]">
+            {movieList.slice(0,10).map((movie: MovieTypes) => {
+                return <Card key={movie.id} className=" p-0 gap-0 w-[230px] h-[440px]">
                     <CardContent className="p-0 h-[340px]">
                         <img
                             className="rounded-t-xl"

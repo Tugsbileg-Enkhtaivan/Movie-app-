@@ -1,4 +1,4 @@
-export type MovieType = {
+export type MovieTypes = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,7 +15,7 @@ export type MovieType = {
   vote_count: number;
 }
 export type GalleryProps = {
-  movieType: MovieType[];
+  movieType: MovieTypes[];
   movieList: [];
 }
 
@@ -31,6 +31,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { instance } from "./utils/axios-instance";
+import { PosterSwiper } from "./_components/PosterSwiper";
+import Nav from "@/components/Nav";
 
 export default function Home() {
   const [movieList, setMovieList] = useState([])
@@ -55,15 +57,15 @@ export default function Home() {
       setNowPLayingMovies(nowPlayingmovies.data.results)
   }
   const getUpComingMovies = async()=>{
-    const upComingMovies = await instance.get(`/movie/upcoming`)
+    const upComingMovies = await instance.get(`/movie/upcoming?language=en&with_genres=${genreId}&query=${searchValue}`)
     setUpComingMovies(upComingMovies.data.results)
   }
   const getTopRatedMovies = async()=>{
-    const topRatedMovies = await instance.get(`/movie/top_rated`)
+    const topRatedMovies = await instance.get(`/movie/top_rated?language=en&with_genres=${genreId}&query=${searchValue}`)
     setTopRatedMovies(topRatedMovies.data.results)
   }
   const getPopularMovies = async()=>{
-    const popularMovies = await instance.get(`/movie/popular`)
+    const popularMovies = await instance.get(`/movie/popular?language=en&with_genres=${genreId}&query=${searchValue}`)
     setPopularMovies(popularMovies.data.results)
   }
   useEffect(() => {
@@ -75,13 +77,13 @@ export default function Home() {
   }, [genreId, searchValue])
   console.log(searchValue)
   const movieRanks = [
-    "popular",
-    "top_rated",
-    "upcoming"
+    "Popular",
+    "Top rated",
+    "Upcoming"
   ]
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-around">
+    <div className="p-0">
+      <div className="flex items-center justify-around h-24">
         <div className="flex">
           <Film className="text-indigo-700" />
           <span className="text-indigo-700">Movie Z</span>
@@ -98,9 +100,9 @@ export default function Home() {
           <Moon className="text-black" />
         </Button>
       </div>
-      <Carousel className="relative">
+      {/* <Carousel className="relative">
         <CarouselContent className="gap-0">
-          {nowPlayingMovies.slice(0,3).map((movie: MovieType) => {
+          {nowPlayingMovies.slice(0,3).map((movie: MovieTypes) => {
             return <CarouselItem key={movie.id} className="h-[50vh]">
               <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} className="h-full object-center object-cover w-full"/>
             </CarouselItem>
@@ -108,17 +110,22 @@ export default function Home() {
         </CarouselContent>
         <CarouselPrevious className="absolute top-1/2"/>
         <CarouselNext className="absolute "/>
-      </Carousel>
-
+      </Carousel> */}
+      <PosterSwiper></PosterSwiper>
       {/* <Gallery movieList={movieList} /> */}
           {movieRanks.map((rank, index) => {
             return (
-              <div key={index}>
-                <h1>{rank}</h1>
-                <Gallery movieList={rank === "popular" ? popularMovies : rank === "top_rated" ? topRatedMovies : upComingMovies} />
+              <div key={index}
+                className="w-[1438px] mx-auto my-12"
+              >
+                <div className="flex items-center justify-between">
+                  <h1 className="text-3xl font-bold mx-20 mb-12">{rank}</h1>
+                    </div>
+                <Gallery movieList={rank === "Popular" ? popularMovies : rank === "Top rated" ? topRatedMovies : upComingMovies} />
               </div>
             );
           })}
+          <Gallery movieList={movieList} />
     </div>
 
   )
