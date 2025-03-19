@@ -16,10 +16,10 @@ export default function Gallery({ movieList }: Type) {
                     </CardContent>
                     <CardHeader className="p-2">
                         <CardDescription className="flex items-center gap-1 p-0">
-                            <Star size={18} color="black" fill="black" />
+                            <Star size={18} color="yellow" fill="yellow" />
                             <span>{movie.vote_average.toFixed(1)}/10</span>
                         </CardDescription>
-                        <CardTitle>{movie.title}</CardTitle>
+                        <CardTitle className="font-normal">{movie.title}</CardTitle>
                     </CardHeader>
                 </Card>
             })}

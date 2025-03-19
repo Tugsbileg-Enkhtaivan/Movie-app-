@@ -12,7 +12,7 @@ const Nav = (props) => {
           <span className="text-indigo-700">Movie Z</span>
         </div>
         <div className="flex gap-4">
-          <GenreSelector setGenreId={setGenreId} genreId={genreId} />
+          <GenreSelector setGenreId={props.setGenreId} genreId={props.genreId} />
           <div className="flex items-center border border-gray-300 rounded-md">
             <Search />
             <Input placeholder={`Search...`} className="border-none selection:border-none" onChange={(e) => setSearchValue(e.currentTarget.value)} />

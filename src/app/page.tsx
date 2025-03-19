@@ -33,6 +33,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { instance } from "./utils/axios-instance";
 import { PosterSwiper } from "./_components/PosterSwiper";
 import Nav from "@/components/Nav";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   const [movieList, setMovieList] = useState([])
@@ -126,6 +127,7 @@ export default function Home() {
             );
           })}
           <Gallery movieList={movieList} />
+          <Footer></Footer>
     </div>
 
   )
