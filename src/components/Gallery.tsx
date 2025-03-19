@@ -26,3 +26,5 @@ export default function Gallery({ movieList }: Type) {
         </div>
     )
 }
+
+//dutuu

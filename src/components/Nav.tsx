@@ -1,11 +1,7 @@
-import * as React from 'react'
-const Nav = () => {
-    
+import React from 'react'
+
+export const Nav = () => {
   return (
-    <div>
-      
-    </div>
+    <div>Nav galzuu</div>
   )
 }
-
-export default Nav
