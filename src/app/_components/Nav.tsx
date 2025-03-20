@@ -3,6 +3,7 @@ import React from 'react'
 import GenreSelector from './GenreSelector'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Props } from 'next/script'
 
 const Nav = (props) => {
   return (
@@ -12,7 +13,7 @@ const Nav = (props) => {
           <span className="text-indigo-700">Movie Z</span>
         </div>
         <div className="flex gap-4">
-          <GenreSelector setGenreId={props.setGenreId} genreId={props.genreId} />
+          <GenreSelector setGenreId={setGenreId} genreId={genreId} />
           <div className="flex items-center border border-gray-300 rounded-md">
             <Search />
             <Input placeholder={`Search...`} className="border-none selection:border-none" onChange={(e) => setSearchValue(e.currentTarget.value)} />

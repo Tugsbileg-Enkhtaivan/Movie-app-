@@ -32,7 +32,7 @@ import { Input } from "@/components/ui/input";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { instance } from "./utils/axios-instance";
 import { PosterSwiper } from "./_components/PosterSwiper";
-import Nav from "@/components/Nav";
+import Nav from "./_components/Nav";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
