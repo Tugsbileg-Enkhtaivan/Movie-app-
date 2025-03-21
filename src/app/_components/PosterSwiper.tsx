@@ -19,15 +19,15 @@ export function PosterSwiper() {
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
   const [nowPlayingMovies, setNowPLayingMovies] = React.useState([]);
-  const getNowPlayingMovies = async()=>{
-        const nowPlayingmovies = await instance.get(`/movie/now_playing`)
-        setNowPLayingMovies(nowPlayingmovies.data.results)
-    }
+  const getNowPlayingMovies = async () => {
+    const nowPlayingmovies = await instance.get(`/movie/now_playing`);
+    setNowPLayingMovies(nowPlayingmovies.data.results);
+  };
 
   React.useEffect(() => {
-      getNowPlayingMovies();
-    }, [])
-console.log(nowPlayingMovies)
+    getNowPlayingMovies();
+  }, []);
+  console.log(nowPlayingMovies);
   return (
     <Carousel
       plugins={[plugin.current]}
@@ -38,10 +38,9 @@ console.log(nowPlayingMovies)
       <CarouselContent className="w-full h-[600px]">
         {nowPlayingMovies.slice(0, 3).map((movie: MovieTypes, index) => (
           <CarouselItem key={movie.id} className="w-full h-full relative">
-            
-            <img 
-                src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                className="w-full h-full object-cover"
+            <img
+              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              className="w-full h-full object-cover"
             />
             {/* Текст (Зураг бүр дээр харагдана) */}
             <div className="absolute left-[170px] bottom-[90px] w-[350px] h-[250px] flex flex-col items-start ">

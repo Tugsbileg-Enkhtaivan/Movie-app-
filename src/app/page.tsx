@@ -1,5 +1,3 @@
-("use client");
-
 export type MovieTypes = {
   adult: boolean;
   backdrop_path: string;
@@ -21,6 +19,7 @@ export type GalleryProps = {
   movieList: [];
 };
 
+("use client");
 import { ChangeEvent, useState } from "react";
 import { useEffect } from "react";
 import { ACCESS_TOKEN } from "../constants";
