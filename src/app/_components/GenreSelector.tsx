@@ -1,3 +1,5 @@
+("use client");
+
 import { ACCESS_TOKEN } from "@/constants";
 import {
   Select,
