@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/carousel";
 import { instance } from "./utils/axios-instance";
 import { PosterSwiper } from "./_components/PosterSwiper";
-import Nav from "./_components/Nav";
+// import Nav from "./_components/Nav";
 import { Footer } from "@/components/footer";
 import {
   Pagination,
